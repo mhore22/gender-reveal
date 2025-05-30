@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gender Reveal</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f0e4ff 0%, #ffe4e9 100%);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.5;
+        }
+        .blob1 {
+            width: 200px;
+            height: 200px;
+            background: #d6e1ff;
+            top: 10%;
+            left: 10%;
+        }
+        .blob2 {
+            width: 250px;
+            height: 250px;
+            background: #ffd6e1;
+            bottom: 10%;
+            left: 20%;
+        }
+        .blob3 {
+            width: 300px;
+            height: 300px;
+            background: #e0e7ff;
+            top: 20%;
+            right: 10%;
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .button {
+            background: #d1c4e9;
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin-bottom: 30px;
+            transition: transform 0.2s;
+        }
+
+        .button:hover {
+            transform: scale(1.05);
+        }
+
+        #message {
+            font-size: 1.5em;
+            color: #333;
+            opacity: 0;
+            transition: opacity 0.3s ease-in;
+            margin: 10px 0;
+        }
+
+        #message.show {
+            opacity: 1;
+        }
+
+        #finalReveal {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .boy {
+            font-size: 2.5em;
+            color: #87ceeb;
+            font-weight: bold;
+        }
+		
+		.girl {
+		  font-size: 2.5em;
+		  color: #e91e63;
+		  font-weight: bold;
+		}
+
+        img {
+            width: 100px;
+            height: 100px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
+
+    <div class="container">
+        <h1>👶 A Message from Me...</h1>
+        <button class="button" id="revealBtn" onclick="startReveal()">Tap to Reveal</button>
+
+        <div id="message"></div>
+        <div id="finalReveal"></div>
+    </div>
+
+    <script>
+        const messages = [
+            "Hi there... 👋",
+            "I’ve been growing inside Mommy, feeling every giggle and flutter...",
+            "I've heard your voices, your laughs, your guesses... 💭",
+            "You've been waiting so long to meet me...",
+            "Mommy and Daddy say you're going to love me a LOT! ❤️",
+            "So I thought I’d finally tell you a little secret...",
+            "Ready to find out?",
+            "Here I come..."
+        ];
+
+		<!-- const finalResult = "I’m a GIRL! 💖"; // Change to BOY! 💙 if needed -->
+        <!-- const finalClass = "girl"; // or "boy" -->
+		
+        const finalResult = "I’m a Boy! 💙"; // Change to "I’m a Boy! 💙" if needed
+        const finalClass = "boy"; // or "boy"
+        const babyImage = "https://cdn-icons-png.flaticon.com/512/4474/4474785.png"; // Modern baby icon
+
+        let index = 0;
+
+        function startReveal() {
+            document.getElementById('revealBtn').style.display = 'none';
+            showNextMessage();
+        }
+
+        function showNextMessage() {
+            const msgDiv = document.getElementById('message');
+            msgDiv.classList.remove('show');
+            setTimeout(() => {
+                if (index < messages.length) {
+                    msgDiv.textContent = messages[index++];
+                    msgDiv.classList.add('show');
+                    setTimeout(showNextMessage, 2200);
+                } else {
+                    msgDiv.style.display = 'none';
+                    const finalDiv = document.getElementById('finalReveal');
+                    finalDiv.innerHTML = `<span class="${finalClass}">${finalResult}</span><img src="${babyImage}" alt="Baby" />`;
+                    finalDiv.style.display = 'flex';
+                }
+            }, 500);
+        }
+    </script>
+</body>
+</html>
